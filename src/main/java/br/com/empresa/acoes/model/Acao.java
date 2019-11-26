@@ -121,15 +121,14 @@ public class Acao implements Comparable<Acao> {
 	
 	private void updateRetornos(final FechamentoAcao fechamento) {
 		if (ultimoFechamentoInserido != null) {
-			FechamentoAcao fechamentoDiaAnterior = ultimoFechamentoInserido;
-			BigDecimal valorRetorno = fechamento.getValorFechamento().divide(fechamentoDiaAnterior.getValorFechamento(), BigDecimal.ROUND_HALF_EVEN);
-			valorRetorno = valorRetorno.subtract(BigDecimal.ONE);
-			
-			retornosDeFechamentos.add(new RetornoFechamentoAcao(fechamento, valorRetorno));
-		} else {
-			//Assumindo que o retorno do primeiro fechamento seja o valor do fechamento 
-			retornosDeFechamentos.add(new RetornoFechamentoAcao(fechamento, fechamento.getValorFechamento()));
-		}
+            FechamentoAcao fechamentoDiaAnterior = ultimoFechamentoInserido;
+            BigDecimal valorRetorno = fechamento.getValorFechamento().divide(fechamentoDiaAnterior.getValorFechamento(), BigDecimal.ROUND_HALF_EVEN);
+            valorRetorno = valorRetorno.subtract(BigDecimal.ONE);
+            
+            retornosDeFechamentos.add(new RetornoFechamentoAcao(fechamento, valorRetorno));
+        } else {
+            retornosDeFechamentos.add(new RetornoFechamentoAcao(fechamento, BigDecimal.ZERO));
+        }
 	}	
 
 	private List<RetornoFechamentoAcao> getRetornosOrdenadosPorValor() {

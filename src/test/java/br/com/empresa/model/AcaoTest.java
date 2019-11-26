@@ -36,7 +36,7 @@ public class AcaoTest extends TestCase {
 		long volume1 = 34252600;
 		acaoOGXP3.addFechamento(new FechamentoAcao(acaoOGXP3, data1, valorFechamento1, volume1));
 		//Alterado
-		valorFechamentoFinal = valorFechamento1;
+		valorFechamentoFinal = BigDecimal.ZERO;
 		
 		LocalDate data2 = LocalDate.parse("2010-01-21");
 		BigDecimal valorFechamento2 = new BigDecimal("20.10");
@@ -106,9 +106,10 @@ public class AcaoTest extends TestCase {
 	@Test
 	public void testAcaoFechamentoMaiorRetorno() {
 		RetornoFechamentoAcao maiorRetorno = acaoOGXP3.getFechamentoMaiorRetorno();
-		assertEquals("Valor maior retorno deve ser 30.30", new BigDecimal("30.30"), maiorRetorno.getRetorno());
-		assertEquals("Data maior retorno deve ser 2010-01-20", LocalDate.parse("2010-01-20"), maiorRetorno.getFechamento().getData());
-	}	
+
+        assertEquals("Valor maior retorno deve ser 25.50", new BigDecimal("25.50"), maiorRetorno.getFechamento().getValorFechamento());
+        assertEquals("Data maior retorno deve ser 2010-01-22", LocalDate.parse("2010-01-22"), maiorRetorno.getFechamento().getData());
+    }	
 	
 	@Test
 	public void testAcaoFechamentoMenorRetorno() {
@@ -121,6 +122,6 @@ public class AcaoTest extends TestCase {
 	@Test
 	public void testAcaoVolumeMedio() {
 		double volumeMedio = acaoOGXP3.getVolumeMedio();
-		assertEquals(String.format("Volume deve ser %g",volumeTotal/(double)numVolumes), 1,volumeMedio);
+		assertEquals(String.format("Volume deve ser %g",volumeTotal/(double)numVolumes), volumeTotal/((double)numVolumes),volumeMedio);
 	}	
 }
